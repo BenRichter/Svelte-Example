@@ -1,16 +1,23 @@
 <script>
   import { onMount } from "svelte";
 
-  // Accessible Property with default
+  // export - Property with default
   export let url = "https://academy.valentinog.com/api/link/";
+  export let searchTerm = undefined;
 
-  let data = [];
+  // state
+  let jsonResponse = [];
+
+  // $: - labeled statement = computed
+  $: regex = new RegExp(searchTerm, "gi");
+  $: data = searchTerm
+          ? jsonResponse.filter(element => element.title.match(regex))
+          : jsonResponse;
 
   // lifecycle async
   onMount(async function() {
-    const response = await fetch(url)
-    const json = await response.json();
-    data = json;
+    const response = await fetch(url);
+    jsonResponse = await response.json();
   });
 </script>
 
