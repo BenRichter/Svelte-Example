@@ -23,7 +23,11 @@
 	Template without links:
 	<ul>
 		{#each data as link}
-			<li>{link.title}</li>
+			{#if link.completed == true}
+				<li class="completed">{link.title}</li>
+			{:else}
+				<li class="remaining">{link.title}</li>
+			{/if}
 		{/each}
 	</ul>
 </Fetch>
@@ -33,5 +37,18 @@
 <style>
 	h1 {
 		color: purple;
+	}
+	.completed {
+		background-color: rgb(132, 214, 132);
+		padding: 5px;
+		width: auto;
+	}
+	.remaining {
+		background-color: rgb(92, 172, 218);
+		padding: 5px;
+		width: auto;
+	}
+	li {
+		margin: 2px;
 	}
 </style>
